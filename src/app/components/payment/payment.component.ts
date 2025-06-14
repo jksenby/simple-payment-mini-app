@@ -9,5 +9,4 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
   styleUrl: './payment.component.scss'
 })
 export class PaymentComponent {
-
 }
