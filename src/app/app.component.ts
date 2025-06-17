@@ -7,18 +7,28 @@ import { CommonModule } from '@angular/common';
   selector: 'app-root',
   imports: [RouterOutlet, CommonModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
   user: any;
-  constructor(private telegramService: TelegramService) {
-    
-  }
+  constructor(private telegramService: TelegramService) {}
 
   ngOnInit(): void {
     this.telegramService.ready();
 
-    console.log(this.telegramService.UserData)
+    const mainButton = this.telegramService.MainButton;
+    mainButton.setText('PAY NOW');
+    mainButton.onClick(() => this.sendData());
+    mainButton.show();
     this.user = this.telegramService.UserData;
+  }
+
+  sendData() {
+    const data = {
+      userId: this.user.id,
+      action: 'payment',
+      amount: 100,
+    };
+    this.telegramService.sendData(data);
   }
 }
