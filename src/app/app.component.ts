@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TelegramService } from './services/telegram.service';
 import { CommonModule } from '@angular/common';
@@ -9,12 +9,16 @@ import { CommonModule } from '@angular/common';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   user: any;
   constructor(private telegramService: TelegramService) {
-    telegramService.ready();
+    
+  }
 
-    console.log(telegramService.UserData())
-    this.user = telegramService.UserData();
+  ngOnInit(): void {
+    this.telegramService.ready();
+
+    console.log(this.telegramService.UserData)
+    this.user = this.telegramService.UserData;
   }
 }
