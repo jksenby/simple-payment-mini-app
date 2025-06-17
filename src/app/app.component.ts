@@ -11,24 +11,34 @@ import { CommonModule } from '@angular/common';
 })
 export class AppComponent implements OnInit {
   user: any;
-  constructor(private telegramService: TelegramService) {}
+  showBrowserFallbackButton: boolean = false;
+  constructor(public telegramService: TelegramService) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.telegramService.ready();
-
+  
+    console.log('User Data:', this.telegramService.UserData);
+  
+  if (this.telegramService.UserData) {
     const mainButton = this.telegramService.MainButton;
-    mainButton.setText('PAY NOW');
-    mainButton.onClick(() => this.sendData());
-    mainButton.show();
-    this.user = this.telegramService.UserData;
+    if (mainButton) {
+      mainButton.setText('PAY $10');
+      mainButton.onClick(() => this.handlePayment());
+      mainButton.show();
+    } else {
+      console.warn('MainButton not available - running in browser mode');
+      this.showBrowserFallbackButton = true;
+    }
+  }
   }
 
-  sendData() {
-    const data = {
-      userId: this.user.id,
-      action: 'payment',
-      amount: 100,
+  handlePayment() {
+    const paymentData = {
+      userId: this.telegramService.UserData?.id,
+      amount: 10,
+      item: 'Premium Subscription'
     };
-    this.telegramService.sendData(data);
+
+    this.telegramService.sendData(paymentData);
   }
 }
