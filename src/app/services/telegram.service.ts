@@ -1,5 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
+import { User } from '../types/user.interface';
 
 @Injectable({ providedIn: 'root' })
 export class TelegramService {
@@ -81,11 +82,12 @@ export class TelegramService {
   }
 
   private mockButtonClick: () => void = () => {};
-  private readonly mockUser = {
+  private readonly mockUser: User = {
     id: 123456789,
     first_name: 'Dev_User',
     username: 'dev_test',
     language_code: 'en',
-    is_premium: true
+    is_premium: true,
+    photo_url: '../../assets/alien.jpg'
   };
 }
