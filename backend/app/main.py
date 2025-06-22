@@ -18,3 +18,5 @@ app.include_router(payment.router, prefix="/api/payments", tags=["Payments"])
 @app.get("/api/health")
 def health_check():
     return {"status": "ok"}
+    
+# uvicorn app.main:app --host 0.0.0.0 --port 8000
