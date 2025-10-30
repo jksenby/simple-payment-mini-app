@@ -12,7 +12,5 @@ import { CommonModule } from '@angular/common';
 export class AppComponent implements OnInit {
   constructor(public telegramService: TelegramService) {}
 
-  ngOnInit() {
-   
-  }
+  ngOnInit() {}
 }

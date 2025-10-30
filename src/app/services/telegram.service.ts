@@ -51,32 +51,37 @@ export class TelegramService {
     win['Telegram'] = {
       WebApp: {
         initDataUnsafe: {
-          user: this.mockUser
+          user: this.mockUser,
         },
         MainButton: {
           show: () => console.log('[MOCK] MainButton shown'),
           hide: () => console.log('[MOCK] MainButton hidden'),
-          setText: (text: string) => console.log(`[MOCK] Button text set to: ${text}`),
+          setText: (text: string) =>
+            console.log(`[MOCK] Button text set to: ${text}`),
           onClick: (callback: () => void) => {
             console.log('[MOCK] MainButton click handler registered');
             this.mockButtonClick = callback;
           },
-          offClick: () => console.log('[MOCK] MainButton click handler removed'),
+          offClick: () =>
+            console.log('[MOCK] MainButton click handler removed'),
           enable: () => console.log('[MOCK] MainButton enabled'),
           disable: () => console.log('[MOCK] MainButton disabled'),
-          setParams: (params: any) => console.log('[MOCK] MainButton params:', params)
+          setParams: (params: any) =>
+            console.log('[MOCK] MainButton params:', params),
         },
         BackButton: {
           show: () => console.log('[MOCK] BackButton shown'),
           hide: () => console.log('[MOCK] BackButton hidden'),
-          onClick: (callback: () => void) => console.log('[MOCK] BackButton click handler registered'),
-          offClick: () => console.log('[MOCK] BackButton click handler removed')
+          onClick: (callback: () => void) =>
+            console.log('[MOCK] BackButton click handler registered'),
+          offClick: () =>
+            console.log('[MOCK] BackButton click handler removed'),
         },
         sendData: (data: string) => console.log('[MOCK] Data sent:', data),
         ready: () => console.log('[MOCK] WebApp ready'),
         expand: () => console.log('[MOCK] WebApp expanded'),
-        close: () => console.log('[MOCK] WebApp closed')
-      }
+        close: () => console.log('[MOCK] WebApp closed'),
+      },
     };
     this.tg = win['Telegram']?.WebApp;
   }
@@ -88,6 +93,6 @@ export class TelegramService {
     username: 'dev_test',
     language_code: 'en',
     is_premium: true,
-    photo_url: '../../assets/alien.jpg'
+    photo_url: '../../assets/alien.jpg',
   };
 }
