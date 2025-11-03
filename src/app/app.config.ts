@@ -16,7 +16,7 @@ import {
   ShowOnDirtyErrorStateMatcher,
 } from '@angular/material/core';
 import { provideNgxMask } from 'ngx-mask';
-import { configInterceptor } from './interceptors/config.interceptor.interceptor';
+import { configInterceptor } from './interceptors/config.interceptor';
 
 registerLocaleData(en);
 

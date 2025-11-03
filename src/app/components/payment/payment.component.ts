@@ -15,6 +15,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButton } from '@angular/material/button';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { NgxMaskDirective } from 'ngx-mask';
+import { PaymentService } from '../../services/payment.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -49,6 +50,7 @@ export class PaymentComponent implements OnInit {
   constructor(
     private telegramService: TelegramService,
     private fb: FormBuilder,
+    private paymentService: PaymentService,
   ) {
   }
 
@@ -75,6 +77,13 @@ export class PaymentComponent implements OnInit {
   }
 
   public onSubmit() {
-    console.log(this.paymentForm);
+    this.paymentService.createPayment(this.paymentForm.value).subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
   }
 }
