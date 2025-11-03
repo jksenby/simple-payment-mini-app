@@ -79,10 +79,10 @@ export class PaymentComponent implements OnInit {
   public onSubmit() {
     this.paymentService.createPayment(this.paymentForm.value).subscribe({
       next: (res) => {
-        console.log(res);
+        window.location.href = res.url;
       },
       error: (err) => {
-        console.error(err);
+        console.error('Error creating checkout session:', err);
       },
     });
   }
