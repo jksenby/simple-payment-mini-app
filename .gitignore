@@ -44,3 +44,6 @@ Thumbs.db
 
 # Virtual Environments
 /backend/venv
+
+# Frontend Environment Variables
+/src/environment/environment.development.ts

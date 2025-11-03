@@ -14,7 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButton } from '@angular/material/button';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
+import { NgxMaskDirective } from 'ngx-mask';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -50,7 +50,6 @@ export class PaymentComponent implements OnInit {
     private telegramService: TelegramService,
     private fb: FormBuilder,
   ) {
-    this.initForm();
   }
 
   ngOnInit(): void {
@@ -61,12 +60,13 @@ export class PaymentComponent implements OnInit {
     if (this.telegramService.UserData) {
       this.user = this.telegramService.UserData;
     }
+    this.initForm();
   }
 
   private initForm() {
     this.paymentForm = this.fb.group({
-      email: this.fb.control('', [Validators.required, Validators.email]),
-      fullName: this.fb.control('', [Validators.required]),
+      username: this.fb.control(this.user?.username ?? '', [Validators.required,]),
+      fullName: this.fb.control(this.user?.first_name ?? this.user?.last_name ?? '', [Validators.required]),
       cardNumber: this.fb.control('', [Validators.required]),
       cardExpiration: this.fb.control(null, [Validators.required]),
       cvv: this.fb.control('', Validators.required),

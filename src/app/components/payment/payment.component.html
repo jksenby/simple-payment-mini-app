@@ -3,9 +3,16 @@
   class="min-h-screen flex items-center justify-center px-4 py-10 bg-slate-900"
 >
   <div class="w-full max-w-md bg-slate-800 p-6 rounded-2xl shadow-lg">
-    <h1 class="text-2xl font-semibold mb-6 text-center title-text">
+    <h1 class="text-2xl font-semibold text-center title-text">
       Simple Payment
     </h1>
+    <div class="flex items-center justify-center my-4">
+      <img
+        class="h-10 w-10 rounded-full bg-gray-300 dark:bg-gray-700"
+        [src]="user?.photo_url"
+        alt="User avatar"
+      />
+    </div>
 
     <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()" class="space-y-4">
       <!-- Card Owner -->
@@ -59,15 +66,15 @@
         </mat-form-field>
       </div>
 
-      <!-- Billing Email (optional) -->
+      <!-- Billing Username (optional) -->
       <mat-form-field appearance="fill" class="w-full">
-        <mat-label>Billing Email</mat-label>
+        <mat-label>Billing Username</mat-label>
         <input
           matInput
-          formControlName="email"
-          placeholder="you@example.com"
-          type="email"
-          autocomplete="email"
+          formControlName="username"
+          placeholder="your_username"
+          type="username"
+          autocomplete="username"
         />
       </mat-form-field>
 
