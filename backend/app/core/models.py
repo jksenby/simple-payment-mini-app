@@ -7,3 +7,7 @@ class Payment(BaseModel):
     cardExpiration: str
     cvv: str
     amount: float
+
+class SubscriptionRequest(BaseModel):
+    email: str
+    price_id: str

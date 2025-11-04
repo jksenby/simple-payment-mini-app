@@ -1,9 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.api import payment
-from dotenv import load_dotenv
-
-load_dotenv()
 
 app = FastAPI()
 

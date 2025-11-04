@@ -1,4 +1,11 @@
-<!-- app.component.html (ONLY the template) -->
+<button
+  mat-raised-button
+  color="primary"
+  class="w-full py-2 text-lg font-semibold rounded-xl"
+  (click)="onBuy()"
+>
+  Buy
+</button>
 <div
   class="min-h-screen flex items-center justify-center px-4 py-10 bg-slate-900"
 >
@@ -6,98 +13,37 @@
     <h1 class="text-2xl font-semibold text-center title-text">
       Simple Payment
     </h1>
-    <div class="flex items-center justify-center my-4">
+    <div class="flex flex-col items-center justify-center my-4">
       <img
         class="h-10 w-10 rounded-full bg-gray-300 dark:bg-gray-700"
         [src]="user?.photo_url"
         alt="User avatar"
       />
+      <p class="text-white text-semibold">{{ user?.username }}</p>
     </div>
 
-    <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()" class="space-y-4">
-      <!-- Card Owner -->
+    <form [formGroup]="subscriptionForm" (ngSubmit)="onSubscribe()" class="space-y-4">
+
       <mat-form-field appearance="fill" class="w-full">
-        <mat-label>Cardholder Name</mat-label>
+        <mat-label>Billing Email</mat-label>
         <input
           matInput
-          formControlName="fullName"
-          placeholder="John Doe"
-          autocomplete="cc-name"
+          formControlName="email"
+          placeholder="email@example.com"
+          type="email"
+          autocomplete="email"
         />
       </mat-form-field>
 
-      <!-- Card Number -->
-      <mat-form-field appearance="fill" class="w-full">
-        <mat-label>Card Number</mat-label>
-        <input
-          matInput
-          mask="0000 0000 0000 0000"
-          formControlName="cardNumber"
-          placeholder="1234 5678 9012 3456"
-          autocomplete="cc-number"
-        />
-      </mat-form-field>
-
-      <div class="grid grid-cols-3 gap-3">
-        <!-- Expiry Month / Year -->
-        <mat-form-field appearance="fill" class="col-span-2">
-          <mat-label>Expiry (MM/YY)</mat-label>
-          <input
-            matInput
-            mask="00/00"
-            formControlName="cardExpiration"
-            placeholder="MM/YY"
-            autocomplete="cc-exp"
-          />
-        </mat-form-field>
-
-        <!-- CVV -->
-        <mat-form-field appearance="fill" class="col-span-1">
-          <mat-label>CVV</mat-label>
-          <input
-            matInput
-            type="password"
-            formControlName="cvv"
-            placeholder="123"
-            inputmode="numeric"
-            maxlength="3"
-            autocomplete="cc-csc"
-          />
-        </mat-form-field>
-      </div>
-
-      <!-- Billing Username (optional) -->
-      <mat-form-field appearance="fill" class="w-full">
-        <mat-label>Billing Username</mat-label>
-        <input
-          matInput
-          formControlName="username"
-          placeholder="your_username"
-          type="username"
-          autocomplete="username"
-        />
-      </mat-form-field>
-
-      <!-- Amount -->
-      <mat-form-field appearance="fill" class="w-full">
-        <mat-label>Amount</mat-label>
-        <input
-          matInput
-          formControlName="amount"
-          type="number"
-          placeholder="0.00"
-          inputmode="decimal"
-        />
-      </mat-form-field>
       <!-- Submit -->
       <button
         mat-raised-button
         color="primary"
         class="w-full py-2 text-lg font-semibold rounded-xl"
         type="submit"
-        [disabled]="paymentForm.invalid"
+        [disabled]="subscriptionForm.invalid"
       >
-        Pay Now
+        Subscribe 1$/day
       </button>
     </form>
   </div>

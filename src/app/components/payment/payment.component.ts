@@ -14,8 +14,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButton } from '@angular/material/button';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { NgxMaskDirective } from 'ngx-mask';
 import { PaymentService } from '../../services/payment.service';
+import { subscription } from '../../types/price.const';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -37,14 +37,13 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     MatInputModule,
     MatFormFieldModule,
     MatButton,
-    NgxMaskDirective,
   ],
   templateUrl: './payment.component.html',
   styleUrl: './payment.component.scss',
 })
 export class PaymentComponent implements OnInit {
   user: User | null = null;
-  paymentForm!: FormGroup;
+  subscriptionForm!: FormGroup;
   matcher = new MyErrorStateMatcher();
 
   constructor(
@@ -66,20 +65,32 @@ export class PaymentComponent implements OnInit {
   }
 
   private initForm() {
-    this.paymentForm = this.fb.group({
-      username: this.fb.control(this.user?.username ?? '', [Validators.required,]),
-      fullName: this.fb.control(this.user?.first_name ?? this.user?.last_name ?? '', [Validators.required]),
-      cardNumber: this.fb.control('', [Validators.required]),
-      cardExpiration: this.fb.control(null, [Validators.required]),
-      cvv: this.fb.control('', Validators.required),
-      amount: this.fb.control(0, Validators.required),
+    this.subscriptionForm = this.fb.group({
+      email: this.fb.control('', [Validators.required,]),
+      priceId: this.fb.control(subscription, [Validators.required,]),
     });
   }
 
-  public onSubmit() {
-    this.paymentService.createPayment(this.paymentForm.value).subscribe({
+  public onBuy() {
+    this.paymentService.createPayment().subscribe({
       next: (res) => {
-        window.location.href = res.url;
+        if(res)
+          window.location.href = res.url;
+      },
+      error: (err) => {
+        console.error('Error creating checkout session:', err);
+      },
+    });
+  }
+
+  public onSubscribe() {
+    this.paymentService.createSubscription({
+      email: this.subscriptionForm.get('email')?.value,
+      price_id: this.subscriptionForm.get('priceId')?.value
+    }).subscribe({
+      next: (res) => {
+        if(res)
+          window.location.href = res.url;
       },
       error: (err) => {
         console.error('Error creating checkout session:', err);
