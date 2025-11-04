@@ -17,13 +17,16 @@ def create_checkout_session(payment: Payment, request: Request):
             origin = "https://simple-payment-mini-app.vercel.app"
 
         checkout_session = stripe.checkout.Session.create(
-            line_items=[
-                {
-                    'price': 'price_1SPND8P8BlWshfIDFLdVVfRJ',
-                    'quantity': 1,
+            payment_method_types=["card"],
+            mode="payment",
+            line_items=[{
+                "price_data": {
+                    "currency": "KZT",
+                    "product_data": {"name": "Nothing"},
+                    "unit_amount": 10,
                 },
-            ],
-            mode='payment',
+                "quantity": 1,
+            }],
             success_url=origin + '/success',
             cancel_url=origin + '/cancel',
         )
