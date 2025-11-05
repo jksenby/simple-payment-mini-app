@@ -1,7 +1,7 @@
 import os
 from fastapi import APIRouter, Request
 import stripe
-from app.core.models import Payment, SubscriptionRequest
+from core.models import SubscriptionRequest
 from dotenv import load_dotenv
 
 load_dotenv()
